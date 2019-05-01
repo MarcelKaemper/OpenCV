@@ -3,17 +3,18 @@
 
 using namespace cv;
 
+Mat image;
 void mouseCallback(int event, int x, int y, int flags, void* userdata);
 
 int main(int argc, char** argv){
 	
-	Mat image = imread("../data/lena.jpg", 1);
 	namedWindow("Image", 1);
 	setMouseCallback("Image", mouseCallback, NULL);
-	imshow("Image", image);
+	image = imread("../data/lena.jpg", 1);
 
 	while(1){
-		waitKey(0);
+		imshow("Image", image);
+		waitKey(1);
 	}
 	
 	return 0;
@@ -21,6 +22,7 @@ int main(int argc, char** argv){
 
 void mouseCallback(int event, int x, int y, int flags, void* userdata){
 	if(event == EVENT_LBUTTONDOWN){
-		std::cout << "x: " << x << std::endl << "y: " << y << std::endl;
+		ellipse(image, RotatedRect(Point2f(x,y), Size2f(25,25), 0), Scalar(255,255,0), FILLED);
 	}
 }
+
